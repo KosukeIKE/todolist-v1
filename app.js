@@ -2,14 +2,17 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const server = "3000";
+const data = require(__dirname + "/day.js");
+
 
 //配列コレクション
+
+let workItem = [];
+
 let list = [
     "EJSを学ぶ", 
     "Zoom Nodeを学ぶ",
 ];
-let workItem = [];
-
 
 app.listen(server, function () {
     console.log("the server is running now");
@@ -55,16 +58,8 @@ app.get("/", function (req, res) {
     //     default:
     //         console.log("Errorが表示されました");
     // }
-    const options = {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric'
-    };
-    
-    const today = new Date();
-    const day = today.toLocaleDateString('en-US', options);
+    let day = data();//返り値を代入している。
     res.render("list", { titleName: day, ToDoContent: list });
-
 });
 
 
