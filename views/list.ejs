@@ -14,20 +14,25 @@
     </div>
 
     <div class="box">
-        <% for(let i=0; i < ToDoContent.length; i++){ %>
-            <div class="item">
-                <input type="checkbox">
-                <p>
-                    <%=ToDoContent[i]%>
-                </p>
-            </div>
-            <% } %>
+        <!-- 配列をイテレート -->
+        <% ToDoContent.forEach(function(items) { %>
+            <form action="/delete" method="POST">
+                <div class="item">
+                    <input type="checkbox" name="checkbox" value="<%= items._id %>" onchange="this.form.submit()">
+                    <p>
+                        <%= items.name %>
+                    </p>
+                    <input type="hidden" name="title" value="<%= titleName %>">
+                </div>
+            </form>
+            <% }) %>
 
 
                 <form class="item" action="/" method="POST">
-                    <input type="text" name="list" placeholder=" put text!!!" autocomplete="off">
-                    <button type="submit">+</button>
+                    <input type="text" name="newListItem" placeholder=" put text!!!" autocomplete="off">
+                    <button type="submit" name="list" value="<%= titleName %>">+</button>
                 </form>
+                <!-- 送信したらinputに入力したnameが送信される -->
     </div>
 
     <%- include('footer'); -%>
